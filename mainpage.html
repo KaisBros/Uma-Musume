@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="zh-CN">
+<html lang="vi-VN">
   <head>
     <meta charset="UTF-8" />
 
@@ -5474,8 +5474,8 @@
           sortedMessages.forEach((msg, index) => {
             const time =
               msg.send_date ||
-              (msg.timestamp ? new Date(msg.timestamp).toLocaleString('zh-CN') : '') ||
-              new Date().toLocaleString('zh-CN');
+              (msg.timestamp ? new Date(msg.timestamp).toLocaleString('vi-VN') : '') ||
+              new Date().toLocaleString('vi-VN');
             const content = msg.content || msg.mes || msg.message || '';
             if (!content.trim()) {
               console.log(`⏭️ Bỏ qua tin nhắn thứ ${index + 1}: Nội dung trống`);
@@ -6027,14 +6027,14 @@
             }
 
             const exportData = {
-              exportTime: new Date().toLocaleString('zh-CN'),
+              exportTime: new Date().toLocaleString('vi-VN'),
               gameTitle: 'Chuyện Lạ Học Viện Tracen',
               version: '2.0',
               totalMessages: chatHistory.length,
               gameState: gameState,
               chatHistory: chatHistory.map(msg => ({
                 type: msg.is_user || msg.type === 'user' ? 'user' : 'ai',
-                time: msg.send_date || (msg.timestamp ? new Date(msg.timestamp).toLocaleString('zh-CN') : ''),
+                time: msg.send_date || (msg.timestamp ? new Date(msg.timestamp).toLocaleString('vi-VN') : ''),
                 content: msg.content || msg.mes || msg.message || '',
               })),
               lorebook_content: {
@@ -7346,7 +7346,7 @@
 
                       <div class="save-name">${saveData.saveName || 'Lưu trữ cục bộ'}</div>
 
-                      <div class="save-time">${new Date(saveData.timestamp).toLocaleString('zh-CN')}</div>
+                      <div class="save-time">${new Date(saveData.timestamp).toLocaleString('vi-VN')}</div>
 
                       <div class="save-type">Lưu thủ công</div>
 
@@ -7388,7 +7388,7 @@
 
                       <div class="save-content">${displayContent}</div>
 
-                      <div class="save-time">${new Date(save.data.timestamp).toLocaleString('zh-CN')}</div>
+                      <div class="save-time">${new Date(save.data.timestamp).toLocaleString('vi-VN')}</div>
 
                       <div class="save-type">Lưu Tự Động</div>
 
@@ -9238,7 +9238,7 @@
 
                   timestamp: saveData.timestamp,
 
-                  time: new Date(saveData.timestamp).toLocaleString('zh-CN'),
+                  time: new Date(saveData.timestamp).toLocaleString('vi-VN'),
 
                   saveName: saveData.saveName,
                 });
@@ -10171,7 +10171,7 @@
             const autoSaveData = saves[slotInfo.id];
             autoSaveHtml += `<div class="save-slot" data-slot-id="${slotInfo.id}" style="margin-bottom: 10px; padding: 10px; background: rgba(45, 27, 27, 0.6); border: 1px solid rgba(139, 105, 20, 0.5); border-radius: 6px; backdrop-filter: blur(2px);">`;
             if (autoSaveData && autoSaveData.snapshot_data && autoSaveData.snapshot_data.mvu_data) {
-              const date = new Date(autoSaveData.timestamp).toLocaleString('zh-CN');
+              const date = new Date(autoSaveData.timestamp).toLocaleString('vi-VN');
               const statData = autoSaveData.snapshot_data.mvu_data.stat_data || {};
               const summary = this._getDisplayText(autoSaveData.message_content || '');
 
@@ -10213,7 +10213,7 @@
             manualHtml += `<div class="save-slot-info" style="margin-bottom: 10px;">`;
 
             if (saveData && saveData.snapshot_data && saveData.snapshot_data.mvu_data) {
-              const date = new Date(saveData.timestamp).toLocaleString('zh-CN');
+              const date = new Date(saveData.timestamp).toLocaleString('vi-VN');
               const statData = saveData.snapshot_data.mvu_data.stat_data || {};
               const summary = this._getDisplayText(saveData.message_content || '');
               const saveName = saveData.save_name || saveData.saveName || `Lưu Trữ ${i}`;
@@ -12627,14 +12627,14 @@
             }
             const currentVariables = this.getAllVariables();
             const exportData = {
-              exportTime: new Date().toLocaleString('zh-CN'),
+              exportTime: new Date().toLocaleString('vi-VN'),
               gameTitle: 'Chuyện Lạ Học Viện Tracen',
               version: '2.0',
               totalMessages: chatHistory.length,
               gameState: currentVariables,
               chatHistory: chatHistory.map(msg => ({
                 type: msg.is_user || msg.role === 'user' ? 'user' : 'ai',
-                time: msg.send_date || (msg.timestamp ? new Date(msg.timestamp).toLocaleString('zh-CN') : ''),
+                time: msg.send_date || (msg.timestamp ? new Date(msg.timestamp).toLocaleString('vi-VN') : ''),
                 content: msg.content || msg.mes || msg.message || '',
               })),
             };
@@ -12804,7 +12804,7 @@
             html = recentSaves
 
               .map((save, index) => {
-                const date = new Date(save.data.timestamp).toLocaleString('zh-CN');
+                const date = new Date(save.data.timestamp).toLocaleString('vi-VN');
 
                 const summary = this._getDisplayText(save.data.message_content)
 
@@ -12903,7 +12903,7 @@
             html = saves
 
               .map(save => {
-                const date = new Date(save.data.timestamp).toLocaleString('zh-CN');
+                const date = new Date(save.data.timestamp).toLocaleString('vi-VN');
 
                 const summary = this._getDisplayText(save.data.message_content)
 
@@ -13161,7 +13161,7 @@
               saveData = JSON.parse(savedData);
             }
 
-            const date = new Date(saveData.timestamp).toLocaleString('zh-CN');
+            const date = new Date(saveData.timestamp).toLocaleString('vi-VN');
 
             const summary = this._getDisplayText(saveData.message_content);
 
