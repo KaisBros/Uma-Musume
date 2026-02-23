@@ -6,9 +6,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Chuyện Lạ Học viện Tracen</title>
+    <title>Quái Đàm Học viện Tracen</title>
 
-    <meta name="description" content="Chuyện Lạ Học Viện Tracen - Giao diện tiểu thuyết trực quan kinh dị" />
+    <meta name="description" content="Quái Đàm Học Viện Tracen - Giao diện tiểu thuyết trực quan kinh dị" />
 
     <script>
       (function () {
@@ -158,7 +158,7 @@
 
           (t(this, 'updateInterval', null),
             t(this, 'isInitialized', !1),
-            console.log('🎮 Trình quản lý giao diện MVU Chuyện Lạ Học Viện Tracen đã được tạo'));
+            console.log('🎮 Trình quản lý giao diện MVU Quái Đàm Học Viện Tracen đã được tạo'));
         }
 
         async init() {
@@ -166,7 +166,7 @@
           console.log('⏱️ [Hiệu năng] ========== Bắt đầu khởi tạo ==========');
 
           if (!this.isInitialized) {
-            if ((console.group('🚀 Khởi tạo giao diện MVU Chuyện Lạ Học Viện Tracen'), void 0 === window.TavernHelper)) {
+            if ((console.group('🚀 Khởi tạo giao diện MVU Quái Đàm Học Viện Tracen'), void 0 === window.TavernHelper)) {
               const initEnd = performance.now();
               console.log(`⏱️ [Hiệu năng] Khởi tạo thất bại (Không tìm thấy TavernHelper), tốn: ${(initEnd - initStart).toFixed(2)}ms`);
               return (console.error('❌ Không tìm thấy môi trường TavernHelper'), void console.groupEnd());
@@ -2495,7 +2495,7 @@
 
           const index = this.unifiedIndex || 1;
           const finalEntryKey = index > 1 ? `${baseEntryKey}(${index})` : baseEntryKey;
-          const bookName = '- Uma Musume: Chuyện Lạ Tracen'; 
+          const bookName = '- Uma Musume: Quái Đàm Tracen'; 
           const reformattedContent = contentToWrite.trim();
 
           try {
@@ -2570,7 +2570,7 @@
           const stat_data = this.currentMvuState?.stat_data;
           if (!stat_data) return '';
           try {
-            const bookName = '- Uma Musume: Chuyện Lạ Tracen';
+            const bookName = '- Uma Musume: Quái Đàm Tracen';
             const index = this.unifiedIndex || 1;
             const journeyKey = index > 1 ? `Trải nghiệm vòng lặp này(${index})` : 'Trải nghiệm vòng lặp này';
             const allEntries = await TavernHelper.getLorebookEntries(bookName);
@@ -2588,7 +2588,7 @@
             console.error('[Hệ thống ký ức] Lỗi khi trích xuất ký ức ngắn hạn:', e);
           }
           try {
-            const bookName = '- Uma Musume: Chuyện Lạ Tracen';
+            const bookName = '- Uma Musume: Quái Đàm Tracen';
             const index = this.unifiedIndex || 1;
             const coreMemoryKey = index > 1 ? `Ký ức cốt lõi vòng lặp này(${index})` : 'Ký ức cốt lõi vòng lặp này';
             const allEntries = await TavernHelper.getLorebookEntries(bookName);
@@ -4860,7 +4860,7 @@
               console.error('❌ Đọc extra.teresen_chat thất bại:', error);
               chatHistory = [];
             }
-            const bookName = '- Uma Musume: Chuyện Lạ Tracen';
+            const bookName = '- Uma Musume: Quái Đàm Tracen';
             const baseJourneyKey = this._getBaseJourneyKey();
             const baseCoreKey = this._getBaseCoreMemoryKey();
             let journeyContent = '';
@@ -6011,7 +6011,7 @@
         async exportChatHistory(chatHistory) {
           try {
             const gameState = this.getAllVariables();
-            const bookName = '- Uma Musume: Chuyện Lạ Tracen';
+            const bookName = '- Uma Musume: Quái Đàm Tracen';
             const baseJourneyKey = this._getBaseJourneyKey();
             const baseCoreKey = this._getBaseCoreMemoryKey();
             let journeyContent = '';
@@ -6028,7 +6028,7 @@
 
             const exportData = {
               exportTime: new Date().toLocaleString('vi-VN'),
-              gameTitle: 'Chuyện Lạ Học Viện Tracen',
+              gameTitle: 'Quái Đàm Học Viện Tracen',
               version: '2.0',
               totalMessages: chatHistory.length,
               gameState: gameState,
@@ -7155,7 +7155,7 @@
                 this.executeQuickAction(actionType, characterName, characterId),
               cancelQuickActionSelection: () => this.cancelQuickActionSelection(),
             }),
-              console.log('🎮 Lệnh gỡ lỗi Chuyện Lạ Học Viện Tracen đã được tải!'),
+              console.log('🎮 Lệnh gỡ lỗi Quái Đàm Học Viện Tracen đã được tải!'),
               console.log('💡 Nhập teresenDebug.help() để xem tất cả các lệnh khả dụng'),
               console.log('🔍 Đối tượng gỡ lỗi:', window.teresenDebug));
           } catch (e) {
@@ -7845,7 +7845,7 @@
                 ? lastAiMessage.message
                 : fullChatHistory[fullChatHistory.length - 1].message;
             }
-            const bookName = '- Uma Musume: Chuyện Lạ Tracen';
+            const bookName = '- Uma Musume: Quái Đàm Tracen';
             const baseJourneyKey = this._getBaseJourneyKey();
             const baseCoreKey = this._getBaseCoreMemoryKey();
             let journeyContent = '';
@@ -9035,7 +9035,7 @@
               console.log('✅ Trạng thái trò chơi đã được khôi phục (định dạng cũ)');
             }
             if (save.snapshot_data && save.snapshot_data.lorebook_content) {
-              const bookName = '- Uma Musume: Chuyện Lạ Tracen';
+              const bookName = '- Uma Musume: Quái Đàm Tracen';
               const baseJourneyKey = this._getBaseJourneyKey();
               const baseCoreKey = this._getBaseCoreMemoryKey();
 
@@ -9090,7 +9090,7 @@
                 console.error('❌ Khôi phục nội dung Sách thế giới thất bại:', e);
               }
             } else if (save.lorebook_content) {
-              const bookName = '- Uma Musume: Chuyện Lạ Tracen';
+              const bookName = '- Uma Musume: Quái Đàm Tracen';
               const baseJourneyKey = this._getBaseJourneyKey();
               const baseCoreKey = this._getBaseCoreMemoryKey();
 
@@ -9664,7 +9664,7 @@
                 const gameState = this.getAllVariables();
                 const chatMessages = await getChatMessages(0);
                 const currentMessage = chatMessages && chatMessages.length > 0 ? chatMessages[0].message : '';
-                const bookName = '- Uma Musume: Chuyện Lạ Tracen';
+                const bookName = '- Uma Musume: Quái Đàm Tracen';
                 const baseJourneyKey = this._getBaseJourneyKey();
                 let journeyContent = '';
                 try {
@@ -9895,7 +9895,7 @@
               this.renderUI(this.currentMvuState.stat_data);
               console.log('✅ Trạng thái trò chơi đã được khôi phục (định dạng cũ)');
             }
-            const bookName = '- Uma Musume: Chuyện Lạ Tracen';
+            const bookName = '- Uma Musume: Quái Đàm Tracen';
             const baseJourneyKey = this._getBaseJourneyKey();
 
             try {
@@ -10085,7 +10085,7 @@
             } catch (e) {
               console.warn('[AutoSave] Lấy nội dung tin nhắn thất bại khi tạo snapshot.');
             }
-            const bookName = '- Uma Musume: Chuyện Lạ Tracen';
+            const bookName = '- Uma Musume: Quái Đàm Tracen';
             const baseJourneyKey = this._getBaseJourneyKey();
             let journeyContent = '';
             try {
@@ -12628,7 +12628,7 @@
             const currentVariables = this.getAllVariables();
             const exportData = {
               exportTime: new Date().toLocaleString('vi-VN'),
-              gameTitle: 'Chuyện Lạ Học Viện Tracen',
+              gameTitle: 'Quái Đàm Học Viện Tracen',
               version: '2.0',
               totalMessages: chatHistory.length,
               gameState: currentVariables,
@@ -23117,7 +23117,7 @@
     <div id="rules-modal" class="rules-modal" style="display: none">
       <div class="rules-modal-content">
         <div class="rules-modal-header">
-          <h2 class="rules-title">Chuyện Lạ Học Viện Tracen</h2>
+          <h2 class="rules-title">Quái Đàm Học Viện Tracen</h2>
 
           <div class="music-controls" style="display: flex; align-items: center; gap: 10px; margin-right: 10px">
             <button
