@@ -2495,7 +2495,7 @@
 
           const index = this.unifiedIndex || 1;
           const finalEntryKey = index > 1 ? `${baseEntryKey}(${index})` : baseEntryKey;
-          const bookName = '- Uma Musume: Quái Đàm Tracen'; 
+          const bookName = '- Uma Musume Quái Đàm Tracen'; 
           const reformattedContent = contentToWrite.trim();
 
           try {
@@ -2570,7 +2570,7 @@
           const stat_data = this.currentMvuState?.stat_data;
           if (!stat_data) return '';
           try {
-            const bookName = '- Uma Musume: Quái Đàm Tracen';
+            const bookName = '- Uma Musume Quái Đàm Tracen';
             const index = this.unifiedIndex || 1;
             const journeyKey = index > 1 ? `Trải nghiệm vòng lặp này(${index})` : 'Trải nghiệm vòng lặp này';
             const allEntries = await TavernHelper.getLorebookEntries(bookName);
@@ -2588,7 +2588,7 @@
             console.error('[Hệ thống ký ức] Lỗi khi trích xuất ký ức ngắn hạn:', e);
           }
           try {
-            const bookName = '- Uma Musume: Quái Đàm Tracen';
+            const bookName = '- Uma Musume Quái Đàm Tracen';
             const index = this.unifiedIndex || 1;
             const coreMemoryKey = index > 1 ? `Ký ức cốt lõi vòng lặp này(${index})` : 'Ký ức cốt lõi vòng lặp này';
             const allEntries = await TavernHelper.getLorebookEntries(bookName);
@@ -4860,7 +4860,7 @@
               console.error('❌ Đọc extra.teresen_chat thất bại:', error);
               chatHistory = [];
             }
-            const bookName = '- Uma Musume: Quái Đàm Tracen';
+            const bookName = '- Uma Musume Quái Đàm Tracen';
             const baseJourneyKey = this._getBaseJourneyKey();
             const baseCoreKey = this._getBaseCoreMemoryKey();
             let journeyContent = '';
@@ -6011,7 +6011,7 @@
         async exportChatHistory(chatHistory) {
           try {
             const gameState = this.getAllVariables();
-            const bookName = '- Uma Musume: Quái Đàm Tracen';
+            const bookName = '- Uma Musume Quái Đàm Tracen';
             const baseJourneyKey = this._getBaseJourneyKey();
             const baseCoreKey = this._getBaseCoreMemoryKey();
             let journeyContent = '';
@@ -7845,7 +7845,7 @@
                 ? lastAiMessage.message
                 : fullChatHistory[fullChatHistory.length - 1].message;
             }
-            const bookName = '- Uma Musume: Quái Đàm Tracen';
+            const bookName = '- Uma Musume Quái Đàm Tracen';
             const baseJourneyKey = this._getBaseJourneyKey();
             const baseCoreKey = this._getBaseCoreMemoryKey();
             let journeyContent = '';
@@ -9035,7 +9035,7 @@
               console.log('✅ Trạng thái trò chơi đã được khôi phục (định dạng cũ)');
             }
             if (save.snapshot_data && save.snapshot_data.lorebook_content) {
-              const bookName = '- Uma Musume: Quái Đàm Tracen';
+              const bookName = '- Uma Musume Quái Đàm Tracen';
               const baseJourneyKey = this._getBaseJourneyKey();
               const baseCoreKey = this._getBaseCoreMemoryKey();
 
@@ -9090,7 +9090,7 @@
                 console.error('❌ Khôi phục nội dung Sách thế giới thất bại:', e);
               }
             } else if (save.lorebook_content) {
-              const bookName = '- Uma Musume: Quái Đàm Tracen';
+              const bookName = '- Uma Musume Quái Đàm Tracen';
               const baseJourneyKey = this._getBaseJourneyKey();
               const baseCoreKey = this._getBaseCoreMemoryKey();
 
@@ -9664,7 +9664,7 @@
                 const gameState = this.getAllVariables();
                 const chatMessages = await getChatMessages(0);
                 const currentMessage = chatMessages && chatMessages.length > 0 ? chatMessages[0].message : '';
-                const bookName = '- Uma Musume: Quái Đàm Tracen';
+                const bookName = '- Uma Musume Quái Đàm Tracen';
                 const baseJourneyKey = this._getBaseJourneyKey();
                 let journeyContent = '';
                 try {
@@ -9895,7 +9895,7 @@
               this.renderUI(this.currentMvuState.stat_data);
               console.log('✅ Trạng thái trò chơi đã được khôi phục (định dạng cũ)');
             }
-            const bookName = '- Uma Musume: Quái Đàm Tracen';
+            const bookName = '- Uma Musume Quái Đàm Tracen';
             const baseJourneyKey = this._getBaseJourneyKey();
 
             try {
@@ -10085,7 +10085,7 @@
             } catch (e) {
               console.warn('[AutoSave] Lấy nội dung tin nhắn thất bại khi tạo snapshot.');
             }
-            const bookName = '- Uma Musume: Quái Đàm Tracen';
+            const bookName = '- Uma Musume Quái Đàm Tracen';
             const baseJourneyKey = this._getBaseJourneyKey();
             let journeyContent = '';
             try {
