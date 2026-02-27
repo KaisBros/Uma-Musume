@@ -69,7 +69,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Send+Flowers&display=swap"
       rel="stylesheet"
       media="print"
       onload="this.media='all'; this.onload=null;"
@@ -77,7 +77,7 @@
 
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Pacifico&family=Send+Flowers&display=swap"
         rel="stylesheet"
       />
     </noscript>
@@ -15455,7 +15455,7 @@
       @layer base {
         html {
           font-family:
-            Noto Sans SC,
+            
             Georgia,
             Times New Roman,
             serif;
@@ -16499,7 +16499,7 @@
           border-radius: 8px;
           box-shadow: 0 2px 8px rgba(139, 69, 19, 0.1);
           position: relative;
-          font-family: 'Noto Serif SC', serif;
+          font-family: 'Times New Roman', serif;
         }
 
         .empty-uma::before {
@@ -16779,7 +16779,7 @@
           margin: 0;
 
           font-family:
-            Brush Script MT,
+            Pacifico,
             cursive;
 
           font-size: 1.5rem;
@@ -16835,7 +16835,7 @@
           padding: 1rem;
 
           font-family:
-            Brush Script MT,
+            Pacifico,
             cursive;
 
           font-size: 1.1rem;
@@ -17405,19 +17405,17 @@
           grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
           gap: 18px; 
           padding: 25px; 
-          max-height: 70vh;
-          overflow-y: auto;
           background: rgba(253, 251, 247, 0.3); 
           border-radius: 12px;
           margin: 15px;
         }
 
         
-        .card-display-grid::-webkit-scrollbar {
+        #card-display-modal .rules-modal-body::-webkit-scrollbar {
           width: 8px;
         }
 
-        .card-display-grid::-webkit-scrollbar-track {
+        #card-display-modal .rules-modal-body::-webkit-scrollbar-track {
           background: rgba(139, 105, 20, 0.1);
           border-radius: 4px;
         }
@@ -17508,12 +17506,12 @@
           box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
         }
 
-        .card-display-grid::-webkit-scrollbar-thumb {
+        #card-display-modal .rules-modal-body::-webkit-scrollbar-thumb {
           background: rgba(139, 105, 20, 0.3);
           border-radius: 4px;
         }
 
-        .card-display-grid::-webkit-scrollbar-thumb:hover {
+        #card-display-modal .rules-modal-body::-webkit-scrollbar-thumb:hover {
           background: rgba(139, 105, 20, 0.5);
         }
 
@@ -17589,7 +17587,8 @@
 
         #card-display-modal .rules-modal-body {
           padding: 0;
-          overflow: hidden;
+          overflow-y: auto;
+          max-height: calc(90vh - 65px);
         }
 
         
@@ -17610,10 +17609,13 @@
         #teresen-fullscreen-overlay #card-display-modal .card-display-grid {
           grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
           gap: 20px;
-          max-height: 85vh;
           
           will-change: scroll-position;
           transform: translateZ(0);
+        }
+
+        #teresen-fullscreen-overlay #card-display-modal .rules-modal-body {
+          max-height: calc(95vh - 65px);
         }
 
         
@@ -17786,7 +17788,7 @@
           margin: 0;
 
           font-family:
-            Brush Script MT,
+            Pacifico,
             cursive;
 
           font-size: 1.5rem;
@@ -17885,7 +17887,7 @@
           padding-bottom: 0.5rem;
 
           font-family:
-            Brush Script MT,
+            Pacifico,
             cursive;
 
           font-size: 1.2rem;
@@ -17901,8 +17903,8 @@
           text-shadow: 0 1px 1px #fffc;
 
           font-family:
-            Segoe Script,
-            Brush Script MT,
+            Send Flowers,
+            Pacifico,
             Georgia,
             serif;
 
@@ -17973,7 +17975,7 @@
           font-weight: 600;
           cursor: pointer;
           transition: all 0.3s ease;
-          font-family: 'Segoe Script', cursive;
+          font-family: 'Send Flowers', cursive;
         }
 
         .add-rule-btn:hover,
@@ -18032,7 +18034,7 @@
           border: 1px solid #d4af37;
           border-radius: 0.25rem;
           padding: 0.25rem 0.5rem;
-          font-family: 'Segoe Script', cursive;
+          font-family: 'Send Flowers', cursive;
           font-size: 0.9rem;
           color: #2d2d2d;
           resize: vertical;
