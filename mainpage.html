@@ -233,7 +233,8 @@
           console.log('window.eventOn:', typeof window.eventOn);
           console.log('getAllVariables:', typeof this.getAllVariables);
           console.log('window.Mvu:', window.Mvu);
-          console.log('window.mag_invoke_mvu:', typeof window.mag_invoke_mvu);
+          let mvuApiTemp = window.Mvu || (window.parent && window.parent.Mvu);
+          console.log('Mvu.parseMessage:', mvuApiTemp ? typeof mvuApiTemp.parseMessage : 'undefined');
           console.log('window.TavernHelper:', window.TavernHelper);
           try {
             const currentVars = this.getAllVariables();
@@ -716,19 +717,30 @@
         }
 
         updateTrainerStatus() {
-          const e = this.getAllVariables(),
-            t = this.getVariable(e, 'stat_data.trainer.stamina', 100),
-            n = this.getVariable(e, 'stat_data.trainer.sanity', 100),
-            s = this.getVariable(e, 'stat_data.trainer.luck', 50),
+          const e = this.getAllVariables();
+          let t = this.getVariable(e, 'stat_data.trainer.stamina', 100),
+            n = this.getVariable(e, 'stat_data.trainer.sanity', 100);
+          const s = this.getVariable(e, 'stat_data.trainer.luck', 50),
             o = this.getVariable(e, 'stat_data.trainer.daysInSchool', 0),
             b = this.getVariable(e, 'stat_data.trainer.background', 'Không'),
             talent = this.getVariable(e, 'stat_data.trainer.talent.majorTalent.name', 'Không'),
             title = this.getVariable(e, 'stat_data.trainer.title', 'Mới vào thế giới');
-          const selfControl = this.getVariable(e, 'stat_data.trainer.selfControl', 100);
+          let selfControl = this.getVariable(e, 'stat_data.trainer.selfControl', 100);
           const power = this.getVariable(e, 'stat_data.trainer.power', 5);
           const skill = this.getVariable(e, 'stat_data.trainer.technique', 5);
           const crystalsValue = this.getVariable(e, 'stat_data.trainer.twistedAffectionCrystals', 0);
           const crystals = parseInt(crystalsValue) || 0;
+
+          // Ràng buộc stamina, sanity, selfControl trong giới hạn [0, 100]
+          t = Math.max(0, Math.min(100, parseInt(t) || 0));
+          n = Math.max(0, Math.min(100, parseInt(n) || 0));
+          selfControl = Math.max(0, Math.min(100, parseInt(selfControl) || 0));
+          // Ghi đè lại vào state nếu có, để đảm bảo dữ liệu lưu trữ cũng đúng
+          if (e && e.stat_data && e.stat_data.trainer) {
+            e.stat_data.trainer.stamina = t;
+            e.stat_data.trainer.sanity = n;
+            e.stat_data.trainer.selfControl = selfControl;
+          }
           if (crystals === 0 && e && e.stat_data && e.stat_data.trainer) {
             console.log('💎 Gỡ lỗi đọc kết tinh:', {
               crystalsValue: crystalsValue,
@@ -1803,7 +1815,7 @@
 
                 const timeText = `${o.toString().padStart(2, '0')}:${a.toString().padStart(2, '0')}`;
 
-                const displayText = evaluation ? `${timeText}，E mắt soi frame：${evaluation}` : `${timeText}`;
+                const displayText = evaluation ? `${timeText}，E-Eyes soi frame：${evaluation}` : `${timeText}`;
 
                 ((t.textContent = displayText), (e.className = 'reply-timer'), (e.style.display = 'flex'));
               } else this.hideReplyTimer();
@@ -1960,20 +1972,28 @@
                 console.log('📊 Phát hiện cập nhật biến:', updateScript);
                 this.updateVariableDecoration(updateScript, false);
                 if (this.currentMvuState && updateScript) {
-                  const inputData = { old_variables: this.currentMvuState };
                   try {
-                    const mvuPromise = eventEmit('mag_invoke_mvu', updateScript, inputData);
-                    const timeoutPromise = new Promise((_, reject) =>
-                      setTimeout(() => reject(new Error('MVU event timeout')), 3000),
-                    );
-                    await Promise.race([mvuPromise, timeoutPromise]);
-
-                    if (inputData.new_variables) {
-                      this.currentMvuState = inputData.new_variables;
-                      console.log('✅ Cập nhật biến MVU thành công');
+                    let mvuApi = window.Mvu || (window.parent && window.parent.Mvu);
+                    if (mvuApi && typeof mvuApi.parseMessage === 'function') {
+                      console.log('✅ Mvu API khả dụng, đang xử lý...');
+                      const updatedState = await mvuApi.parseMessage(updateScript, this.currentMvuState);
+                      if (updatedState) {
+                        // Ràng buộc stamina, sanity, selfControl trong giới hạn [0, 100] trước khi lưu
+                        if (updatedState.stat_data && updatedState.stat_data.trainer) {
+                          const tr = updatedState.stat_data.trainer;
+                          if (tr.stamina !== undefined) tr.stamina = Math.max(0, Math.min(100, parseInt(tr.stamina) || 0));
+                          if (tr.sanity !== undefined) tr.sanity = Math.max(0, Math.min(100, parseInt(tr.sanity) || 0));
+                          if (tr.selfControl !== undefined) tr.selfControl = Math.max(0, Math.min(100, parseInt(tr.selfControl) || 0));
+                          console.log('🔒 Ràng buộc stat [0-100]: stamina=' + tr.stamina + ', sanity=' + tr.sanity + ', selfControl=' + tr.selfControl);
+                        }
+                        this.currentMvuState = updatedState;
+                        console.log('✅ Cập nhật biến MVU thành công');
+                      }
+                    } else {
+                      console.warn('⚠️ Mvu API không tìm thấy!');
                     }
-                  } catch (eventError) {
-                    console.error('❌ Cập nhật biến MVU thất bại:', eventError);
+                  } catch (error) {
+                    console.error('❌ Cập nhật biến MVU thất bại:', error);
                   }
                 }
               } else {
@@ -1981,8 +2001,8 @@
               }
               console.log('📝 Bắt đầu trích xuất ký ức...');
               const cleanedText = finalText.replace(/<safe>[\s\S]*?<\/safe>/g, '');
-              this.lastExtractedJourney = this._extractLastTagContent('Trải nghiệm vòng lặp này', cleanedText);
-              this.lastExtractedCoreMemory = this._extractLastTagContent('Ký ức cốt lõi vòng lặp này', cleanedText);
+              this.lastExtractedJourney = this._extractLastTagContent('LoopJourney', cleanedText);
+              this.lastExtractedCoreMemory = this._extractLastTagContent('CoreMemory', cleanedText);
               if (this.isAutoWriteEnabled) {
                 if (this.lastExtractedJourney) {
                   await this.writeJourneyToLorebook(true); 
@@ -2141,12 +2161,12 @@
 
         
         async _processVariables(content, currentVariables) {
-          const inputData = { old_variables: currentVariables };
           try {
-            if ('function' == typeof window.eventEmit) {
-              await window.eventEmit('mag_invoke_mvu', content, inputData);
-              if (inputData.new_variables) {
-                const updatedVariables = inputData.new_variables;
+            let mvuApi = window.Mvu || (window.parent && window.parent.Mvu);
+            if (mvuApi && typeof mvuApi.parseMessage === 'function') {
+              console.log('✅ Sử dụng Mvu.parseMessage API mới');
+              const updatedVariables = await mvuApi.parseMessage(content, currentVariables);
+              if (updatedVariables) {
                 return {
                   updatedVariables: updatedVariables,
                   snapshot: JSON.parse(JSON.stringify(updatedVariables)),
@@ -2791,7 +2811,7 @@
               (localStorage.setItem('teresen_last_reply_time', n.toString()),
                 localStorage.setItem('teresen_waiting_for_reply', 'false'),
                 localStorage.setItem('teresen_last_reply_evaluation', evaluation),
-                console.log(`✅ Hoàn tất tạo phản hồi, tốn: ${seconds} giây，E mắt soi frame：${evaluation}`),
+                console.log(`✅ Hoàn tất tạo phản hồi, tốn: ${seconds} giây，E-Eyes soi frame：${evaluation}`),
                 this.updateReplyTimer());
             }
           } catch (e) {
@@ -3728,7 +3748,7 @@
                         fontSize: '0.9rem',
                         padding: '1rem',
                         transform: 'scale(1.1)',
-                        transformOrigin: 'top center',
+                        transformOrigin: 'top left',
                       });
                     } else {
                       popup.css({
@@ -7722,9 +7742,19 @@
         }
         async loadSaveData_DELETED(e) {
           try {
-            if (e.variables && 'function' == typeof eventEmit) {
-              eventEmit('mag_invoke_mvu');
-              console.log('✅ Biến MVU đã cập nhật');
+            if (e.variables) {
+              try {
+                let mvuApi = window.Mvu || (window.parent && window.parent.Mvu);
+                if (mvuApi && typeof mvuApi.parseMessage === 'function') {
+                  const currentVars = typeof this.getAllVariables === 'function' ? this.getAllVariables() : e.variables;
+                  await mvuApi.parseMessage('', currentVars);
+                  console.log('✅ Biến MVU đã cập nhật (thông qua parseMessage)');
+                } else {
+                  console.warn('⚠️ Mvu API không tìm thấy để cập nhật biến');
+                }
+              } catch (err) {
+                console.error('❌ Cập nhật biến MVU thất bại:', err);
+              }
             }
             if (e.message || (e.timeline_history && Array.isArray(e.timeline_history))) {
               if (typeof SillyTavern === 'undefined' || !SillyTavern.chat || SillyTavern.chat.length === 0) {
@@ -15456,8 +15486,8 @@
         html {
           font-family:
             
+            'Times New Roman',
             Georgia,
-            Times New Roman,
             serif;
         }
 
@@ -16525,8 +16555,8 @@
           white-space: pre-wrap;
 
           font-family:
+            'Times New Roman',
             Georgia,
-            Times New Roman,
             serif;
 
           font-size: 1rem;
@@ -16857,8 +16887,8 @@
           padding: 1.5rem;
 
           font-family:
+            'Times New Roman',
             Georgia,
-            Times New Roman,
             serif;
 
           font-size: 0.9rem;
@@ -16980,6 +17010,8 @@
           font-size: 1.125rem;
 
           font-weight: 700;
+
+          font-family: 'Times New Roman', Georgia, serif;
         }
 
         .action-input {
@@ -17000,8 +17032,8 @@
           max-height: 120px;
 
           font-family:
+            'Times New Roman',
             Georgia,
-            Times New Roman,
             serif;
 
           font-size: 0.875rem;
